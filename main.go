@@ -14,16 +14,21 @@ func main() {
 	fmt.Println("Digita el número de la operación que deseas realizar:")
 	fmt.Println("1 Para multiplicar dos numeros")
 	fmt.Println("2 Para conocer una tabla de multiplicar")
+	fmt.Println("3 Para conocer el exponente de un número")
 	opcion := teclado.Ingreso()
 	switch opcion {
 	case "1":
 		nombre_archivo := archivos.CrearArchivo(".", "multiplicacion.txt")
 		multiplicacion(nombre_archivo)
-		fmt.Println(archivos.LeerArchivo(nombre_archivo))
+		archivos.LeerArchivo(nombre_archivo)
 	case "2":
 		nombre_archivo := archivos.CrearArchivo(".", "tabla.txt")
 		tabla(nombre_archivo)
-		fmt.Println(archivos.LeerArchivo(nombre_archivo))
+		archivos.LeerArchivo(nombre_archivo)
+	case "3":
+		nombre_archivo := archivos.CrearArchivo(".", "exponencial.txt")
+		exponencial(nombre_archivo)
+		archivos.LeerArchivo(nombre_archivo)
 	default:
 		fmt.Println("El valor digitado no corresponde a una opción valida")
 
@@ -53,6 +58,16 @@ func tabla(nombre_archivo string) {
 	ingreso1 := teclado.Ingreso()
 	numero1 := convertir.Texto_numero(ingreso1)
 	resultado := calculadora.TablasMultiplicar(numero1)
+	archivos.GuardarDatoArchivoNuevo(nombre_archivo, resultado)
+
+}
+
+func exponencial(nombre_archivo string) {
+	fmt.Println("Por favor digita el número que desea exponenciar:")
+	ingreso1 := teclado.Ingreso()
+	fmt.Println("Por favor digita el limite del exponente:")
+	ingreso2 := teclado.Ingreso()
+	resultado := calculadora.Exponencial(convertir.Texto_numero(ingreso1), convertir.Texto_numero(ingreso2))
 	archivos.GuardarDatoArchivoNuevo(nombre_archivo, resultado)
 
 }
